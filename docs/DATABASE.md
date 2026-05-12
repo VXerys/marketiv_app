@@ -113,6 +113,8 @@ Menyimpan identitas semua aktor sistem (UMKM, Kreator, Admin).
 | `foto_profil_url` | String   | ❌       | null    | URL dari Appwrite Storage |
 | `bio`             | String   | ❌       | null    | |
 | `is_verified`     | Boolean  | ✅       | false   | |
+| `fcm_token`       | String   | ❌       | null    | Alamat unik perangkat untuk notifikasi (Size 255) |
+| `unread_count`    | Integer  | ✅       | 0       | Jumlah notifikasi belum dibaca (Min 0) |
 
 > **Catatan:** `email` dan `password` dikelola sepenuhnya oleh **Appwrite Auth** — tidak disimpan di collection `users`. Gunakan `account.get()` untuk membaca email user yang sedang login.
 
@@ -121,6 +123,7 @@ Menyimpan identitas semua aktor sistem (UMKM, Kreator, Admin).
 ```
 Index: role (key)            → untuk filter berdasarkan role
 Index: user_id (unique)      → lookup user by auth ID
+Index: fcm_token_idx (key)   → index attributes: fcm_token
 ```
 
 ### 2.3 Permissions
@@ -154,6 +157,8 @@ class UserModel {
   final String? fotoProfilUrl;
   final String? bio;
   final bool isVerified;
+  final String? fcmToken;
+  final int unreadCount;
   final DateTime createdAt;
 
   factory UserModel.fromDocument(Map<String, dynamic> data) => UserModel(
@@ -167,6 +172,8 @@ class UserModel {
     fotoProfilUrl: data['foto_profil_url'],
     bio: data['bio'],
     isVerified: data['is_verified'] ?? false,
+    fcmToken: data['fcm_token'],
+    unreadCount: data['unread_count'] ?? 0,
     createdAt: DateTime.parse(data['\$createdAt']),
   );
 
@@ -180,6 +187,8 @@ class UserModel {
     'foto_profil_url': fotoProfilUrl,
     'bio': bio,
     'is_verified': isVerified,
+    'fcm_token': fcmToken,
+    'unread_count': unreadCount,
   };
 
   UserEntity toEntity() => UserEntity(
@@ -193,6 +202,8 @@ class UserModel {
     fotoProfilUrl: fotoProfilUrl,
     bio: bio,
     isVerified: isVerified,
+    fcmToken: fcmToken,
+    unreadCount: unreadCount,
   );
 }
 ```
