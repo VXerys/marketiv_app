@@ -1,29 +1,26 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:get/get.dart';
 import '../constants/app_constants.dart';
 
-class AppwriteService extends GetxService {
-  late final Client client;
-  late final Account account;
-  late final Databases databases;
-  late final Storage storage;
-  late final Realtime realtime;
-  late final Functions functions;
+class AppwriteService {
+  static final Client _client = Client();
+  static late final Account account;
+  static late final Databases databases;
+  static late final Storage storage;
+  static late final Realtime realtime;
+  static late final Functions functions;
 
-  Future<AppwriteService> init() async {
-    client = Client()
-      ..setEndpoint(AppConstants.appwriteEndpoint)
-      ..setProject(AppConstants.appwriteProjectId);
+  static Future<void> initialize() async {
+    _client
+      .setEndpoint(AppConstants.appwriteEndpoint)
+      .setProject(AppConstants.appwriteProjectId);
 
-    account = Account(client);
-    databases = Databases(client);
-    storage = Storage(client);
-    realtime = Realtime(client);
-    functions = Functions(client);
-    
-    return this;
+    account   = Account(_client);
+    databases = Databases(_client);
+    storage   = Storage(_client);
+    realtime  = Realtime(_client);
+    functions = Functions(_client);
   }
-  
-  // Static getter for easy access if needed, though Get.find is preferred
-  static AppwriteService get to => Get.find();
+
+  // Helper to access client if needed
+  static Client get client => _client;
 }

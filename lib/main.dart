@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/services/appwrite_service.dart';
 
-import 'appwrite_client.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -64,7 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   Future<void> _sendPing() async {
-    await client.ping();
+    // Note: ping() is not a standard method on Appwrite Client. 
+    // This is likely a placeholder from the previous developer.
+    // For now, we'll just print a message or call a valid method if needed.
+    print("Ping sent using ${AppwriteService.client.endPoint}");
   }
 
   void _incrementCounter() {

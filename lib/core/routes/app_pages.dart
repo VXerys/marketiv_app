@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app_routes.dart';
+import '../../features/auth/presentation/bindings/auth_binding.dart';
+import '../../features/auth/presentation/pages/splash_page.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/auth/presentation/pages/role_selection_page.dart';
 
 class AppPages {
   static const initial = Routes.splash;
@@ -9,25 +13,25 @@ class AppPages {
     // Auth & Onboarding
     GetPage(
       name: Routes.splash,
-      page: () => const Scaffold(body: Center(child: Text('Splash'))),
-    ),
-    GetPage(
-      name: Routes.onboarding,
-      page: () => const Scaffold(body: Center(child: Text('Onboarding'))),
+      page: () => const SplashPage(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: Routes.login,
-      page: () => const Scaffold(body: Center(child: Text('Login'))),
+      page: () => const LoginPage(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.register,
+      page: () => const RegisterPage(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.roleSelection,
+      page: () => const RoleSelectionPage(),
     ),
     
     // Main Navigation
-    GetPage(
-      name: Routes.umkmHome,
-      page: () => const Scaffold(body: Center(child: Text('UMKM Home'))),
-    ),
-    GetPage(
-      name: Routes.kreatorHome,
-      page: () => const Scaffold(body: Center(child: Text('Kreator Home'))),
-    ),
+    // TODO: Add other pages as they are implemented
   ];
 }
