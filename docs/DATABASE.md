@@ -3,7 +3,7 @@
 > Kembali ke: [README.md](README.md) | [FEATURES.md](FEATURES.md) | [TECHNICAL_GUIDELINES.md](TECHNICAL_GUIDELINES.md)
 
 ---
-
+  
 ## Prinsip Utama
 
 > Database **TIDAK BOLEH** menyimpan tipe data file binary. Semua aset besar disimpan sebagai URL string. Database murni relasional (teks/angka/boolean).
