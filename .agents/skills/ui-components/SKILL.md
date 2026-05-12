@@ -15,32 +15,16 @@ description: >
 ## Design Tokens
 
 ```dart
-// AppColors
-primary500   = Color(0xFFF97316)  // Orange utama
-primary600   = Color(0xFFEA580C)  // Hover/press
-secondary500 = Color(0xFF1E3A5F)  // Navy
-success      = Color(0xFF16A34A)
-warning      = Color(0xFFD97706)
-danger       = Color(0xFFDC2626)
-info         = Color(0xFF2563EB)
-background   = Color(0xFFFAFAFA)
-surface      = Color(0xFFFFFFFF)
-grey500      = Color(0xFF6B7280)
-grey700      = Color(0xFF374151)
+// Gunakan konstanta dari file berikut di lib/core/constants/
 
-// AppSpacing
-xs=4, sm=8, md=16, lg=24, xl=32, xxl=48
-radiusSm=8, radiusMd=12, radiusLg=16
+// 1. AppColors (app_colors.dart)
+// Contoh: AppColors.primary500, AppColors.secondary500, AppColors.danger, dll.
 
-// AppTextStyles
-h1: Newsreader 32 Bold
-h2: Newsreader 24 Bold
-h3: Newsreader 20 SemiBold
-bodyLarge: Inter 16 Regular
-bodyMedium: Inter 14 Regular
-bodySmall: Inter 12 Regular
-labelMedium: Inter 14 Medium
-buttonText: Inter 16 SemiBold
+// 2. AppSpacing (app_spacing.dart)
+// Contoh: AppSpacing.sm, AppSpacing.md, AppSpacing.radiusMd, dll.
+
+// 3. AppTextStyles (app_text_styles.dart)
+// Contoh: AppTextStyles.h3 (Newsreader), AppTextStyles.bodyMedium (Inter), dll.
 ```
 
 ---

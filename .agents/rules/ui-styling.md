@@ -8,25 +8,16 @@ description: Panduan desain, tipografi, warna, dan komponen UI Marketiv yang det
 Gunakan panduan ini untuk memastikan setiap halaman di Marketiv terlihat premium, konsisten, dan intuitif bagi pengguna UMKM.
 
 ### 1. Design Tokens (Konstanta Wajib)
-Jangan pernah menulis kode warna atau ukuran secara *hardcoded*. Selalu gunakan konstanta berikut:
+Jangan pernah menulis kode warna, ukuran, atau typography secara *hardcoded*. Anda **WAJIB** mengimpor dan menggunakan file konstanta berikut yang berada di `lib/core/constants/`:
 
-#### **A. Palet Warna (AppColors)**
-- `primary500`: `#F97316` (Orange Utama - Branding Marketiv)
-- `secondary500`: `#1E3A5F` (Navy - Profesionalisme)
-- `success`: `#16A34A` (Hijau - Berhasil/Valid)
-- `danger`: `#DC2626` (Merah - Gagal/Batal/Error)
-- `background`: `#FAFAFA` (Abu Sangat Muda - Latar Belakang App)
-- `surface`: `#FFFFFF` (Putih - Card/Elevated Elements)
-- `grey300`: `#D1D5DB` (Border/Placeholder)
-
-#### **B. Spacing (AppSpacing)**
-- `xs`: 4.0 | `sm`: 8.0 | `md`: 16.0 | `lg`: 24.0 | `xl`: 32.0
-
-#### **C. Tipografi (AppTextStyles)**
-- **Heading 3**: `Newsreader` 20 SemiBold (Untuk Judul Halaman/Produk)
-- **Body Medium**: `Inter` 14 Regular (Untuk Deskripsi/Teks Standar)
-- **Label Medium**: `Inter` 14 Medium (Untuk Label/Nama Field)
-- **Button Text**: `Inter` 16 SemiBold (Untuk Teks Tombol Utama)
+- **A. Palet Warna**: Gunakan `AppColors` dari `app_colors.dart`.
+- **B. Spacing & Layout**: Gunakan `AppSpacing` dari `app_spacing.dart` (Sistem spacing kelipatan 4px).
+  - Padding horizontal layar standar: `space-4` (16px).
+  - Jarak antar kartu: `space-4` (16px) atau `space-8` (32px).
+- **C. Tipografi**: Gunakan `AppTextStyles` dari `app_text_styles.dart`.
+  - **Font Utama**: `Newsreader` (untuk Judul/Heading).
+  - **Font Sekunder**: `Inter` (untuk Body & UI).
+  - **Aturan Font Minimum**: Body text minimal **15px** (`text-base`). Caption/Timestamp minimal **11px** (`text-xs`).
 
 ### 2. Standar Komponen & State UI
 Setiap halaman yang mengambil data dari internet wajib memiliki 3 lapisan state berikut:
@@ -42,17 +33,29 @@ Setiap halaman yang mengambil data dari internet wajib memiliki 3 lapisan state 
    - Gunakan `ListView.builder` (atau `SliverList`) untuk daftar panjang guna optimasi memori.
    - Gunakan `Obx` dari GetX untuk pembaharuan UI yang reaktif.
 
-### 3. Penanganan Media & Gambar
+### 3. Komponen Utama (DOK-4 Standards)
+- **Tombol (Button)**:
+  - **Tinggi Default**: 48px (Medium).
+  - **Full Width**: Standar untuk aksi utama di mobile (seperti di Fixed Bottom Bar).
+  - **Varian**: Primary (Orange), Secondary (Navy), Outline, Ghost, Danger.
+  - **State**: Default, Pressed (darken 10% + scale 0.97), Loading, Disabled.
+- **Input Field**:
+  - Tinggi minimum: **52px** (memenuhi touch target).
+  - Label wajib di atas input (bukan floating label).
+- **Bottom Sheet**:
+  - Radius atas: 16px (`radius-lg`).
+  - Wajib memiliki **drag handle** (lebar 40px, tinggi 4px, warna `neutral-300`).
+
+### 4. Aksesibilitas & Touch
+- **Touch Target**: Setiap elemen interaktif wajib memiliki area sentuh minimum **44px × 44px**.
+- **Thumb Zone**: Aksi utama (Submit, Bayar, Klaim) wajib diletakkan di **Fixed Bottom Bar** agar mudah dijangkau ibu jari.
+- **Kontras**: Pastikan kontras teks memenuhi standar WCAG AA (Rasio 4.5:1 untuk teks normal).
+
+### 5. Penanganan Media & Gambar
 - **Remote Images**: Selalu gunakan `CachedNetworkImage`.
 - **Placeholder**: Wajib menyediakan `placeholder` (shimmer) dan `errorWidget` (icon/asset default) jika gambar gagal dimuat.
 - **Thumbnail**: Optimasi ukuran gambar sebelum ditampilkan jika memungkinkan.
 
-### 4. Copywriting & Bahasa
-- **Lokalitas**: Gunakan Bahasa Indonesia yang praktis dan intuitif. Hindari istilah teknis yang sulit (Contoh: gunakan "Tarik Saldo" bukan "Withdrawal Request").
+### 6. Copywriting & Bahasa
+- **Lokalitas**: Gunakan Bahasa Indonesia yang praktis dan intuitif bagi pengguna UMKM.
 - **Snackbar**: Gunakan `Get.snackbar` dengan warna latar `AppColors.danger` untuk error dan `AppColors.success` untuk pesan berhasil.
-- **Hint & Label**: Setiap field input harus memiliki label yang jelas dan hint yang membantu pengguna (Contoh: "Nama Produk — Sambal Matah").
-
-### 5. Interaksi & Navigasi
-- **Feedback Visual**: Tombol harus memiliki feedback saat ditekan (splash/ripple).
-- **Disabled State**: Tombol aksi wajib dinonaktifkan saat `isLoading` bernilai `true` untuk mencegah *multiple submission*.
-- **Transitions**: Gunakan transisi halaman bawaan GetX yang halus.

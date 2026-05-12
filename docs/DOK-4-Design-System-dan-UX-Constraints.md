@@ -70,7 +70,8 @@ Design Token adalah nilai-nilai dasar yang menjadi "bahasa bersama" antara desai
 
 ## A.2 — Tipografi
 
-**Font Utama:** `Inter` (sistem, tidak butuh unduhan tambahan)
+**Font Utama:** `Newsreader` (untuk judul dan heading)
+**Font Sekunder:** `Inter` (sistem, untuk teks body dan UI pendukung)
 
 ### Skala Ukuran Teks
 
