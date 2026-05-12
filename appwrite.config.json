@@ -1,0 +1,975 @@
+{
+    "projectId": "69f9d45b00315cb0ec2f",
+    "projectName": "Marketiv",
+    "endpoint": "https://sgp.cloud.appwrite.io/v1",
+    "settings": {
+        "services": {
+            "account": true,
+            "avatars": true,
+            "databases": true,
+            "locale": true,
+            "health": true,
+            "storage": true,
+            "teams": true,
+            "users": true,
+            "sites": true,
+            "functions": true,
+            "graphql": true,
+            "messaging": true
+        },
+        "protocols": {
+            "rest": true,
+            "graphql": true,
+            "websocket": true
+        },
+        "auth": {
+            "methods": {
+                "jwt": true,
+                "phone": true,
+                "invites": true,
+                "anonymous": true,
+                "email-otp": true,
+                "magic-url": true,
+                "email-password": true
+            },
+            "security": {
+                "duration": 31536000,
+                "limit": 0,
+                "sessionsLimit": 0,
+                "passwordHistory": 0,
+                "passwordDictionary": false,
+                "personalDataCheck": false,
+                "sessionAlerts": false,
+                "mockNumbers": []
+            }
+        }
+    },
+    "functions": [
+        {
+            "$id": "claim-campaign-fn",
+            "name": "Claim Campaign",
+            "runtime": "dart-3.11",
+            "buildSpecification": "s-1vcpu-1gb",
+            "runtimeSpecification": "s-1vcpu-1gb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "lib/main.dart",
+            "commands": "dart pub get",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/claim-campaign"
+        },
+        {
+            "$id": "release-escrow-fn",
+            "name": "Release Escrow",
+            "runtime": "dart-3.11",
+            "buildSpecification": "s-1vcpu-1gb",
+            "runtimeSpecification": "s-1vcpu-1gb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "lib/main.dart",
+            "commands": "dart pub get",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/release-escrow"
+        },
+        {
+            "$id": "refund-escrow-fn",
+            "name": "Refund Escrow",
+            "runtime": "dart-3.11",
+            "buildSpecification": "s-0.5vcpu-512mb",
+            "runtimeSpecification": "s-0.5vcpu-512mb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "lib/main.dart",
+            "commands": "dart pub get",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/refund-escrow"
+        },
+        {
+            "$id": "validate-submission-fn",
+            "name": "Validate Submission",
+            "runtime": "dart-3.11",
+            "buildSpecification": "s-1vcpu-1gb",
+            "runtimeSpecification": "s-1vcpu-1gb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "lib/main.dart",
+            "commands": "dart pub get",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/validate-submission"
+        },
+        {
+            "$id": "generate-brief-fn",
+            "name": "Generate Brief",
+            "runtime": "dart-3.11",
+            "buildSpecification": "s-4vcpu-4gb",
+            "runtimeSpecification": "s-4vcpu-4gb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "lib/main.dart",
+            "commands": "dart pub get",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/generate-brief"
+        },
+        {
+            "$id": "withdraw-fn",
+            "name": "Withdraw",
+            "runtime": "dart-3.11",
+            "buildSpecification": "s-1vcpu-1gb",
+            "runtimeSpecification": "s-1vcpu-1gb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "lib/main.dart",
+            "commands": "dart pub get",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/withdraw"
+        },
+        {
+            "$id": "admin-stats-fn",
+            "name": "Admin Stats",
+            "runtime": "dart-3.11",
+            "buildSpecification": "s-1vcpu-1gb",
+            "runtimeSpecification": "s-1vcpu-1gb",
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "scopes": [
+                "users.read"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "lib/main.dart",
+            "commands": "dart pub get",
+            "ignore": [
+                ".packages",
+                ".dart_tool"
+            ],
+            "deploymentRetention": 0,
+            "path": "functions/admin-stats"
+        }
+    ],
+    "tablesDB": [
+        {
+            "$id": "6a016dd40034e14d50ff",
+            "name": "marketiv_db",
+            "enabled": true
+        }
+    ],
+    "tables": [
+        {
+            "$id": "users",
+            "$permissions": [],
+            "databaseId": "6a016dd40034e14d50ff",
+            "name": "USERS",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "user_id",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "role",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "nama_lengkap",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "nomor_whatsapp",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "dompet_saldo",
+                    "type": "double",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": 0,
+                    "max": 1.7976931348623157e+308
+                },
+                {
+                    "key": "niche",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "foto_profil_url",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "is_verified",
+                    "type": "boolean",
+                    "required": true,
+                    "array": false,
+                    "default": null
+                },
+                {
+                    "key": "bio",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "campaigns",
+            "$permissions": [],
+            "databaseId": "6a016dd40034e14d50ff",
+            "name": "CAMPAIGNS",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "umkm_id",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "judul_campaign",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "deskripsi_brief",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "url_aset_eksternal",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "kuota_kreator",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "kuota_terpakai",
+                    "type": "integer",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": 0,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "harga_per_1000_views",
+                    "type": "double",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308
+                },
+                {
+                    "key": "niche",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "status",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "total_budget_escrow",
+                    "type": "double",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "submissions",
+            "$permissions": [],
+            "databaseId": "6a016dd40034e14d50ff",
+            "name": "SUBMISSIONS",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "url_bukti_tayang",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "jumlah_views_target",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "dana_dicairkan",
+                    "type": "double",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308
+                },
+                {
+                    "key": "campaign_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "kreator_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "status_validasi",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 20,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "campaign_id_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "campaign_id"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "kreator_id_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "kreator_id"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "status_validasi_id",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "status_validasi"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "rate_cards",
+            "$permissions": [],
+            "databaseId": "6a016dd40034e14d50ff",
+            "name": "RATE_CARDS",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "kreator_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "nama_paket",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "deskripsi_paket",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "harga_paket",
+                    "type": "double",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308
+                },
+                {
+                    "key": "deliverable",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "estimasi_hari",
+                    "type": "integer",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "min": -9223372036854775808,
+                    "max": 9223372036854775807
+                },
+                {
+                    "key": "is_active",
+                    "type": "boolean",
+                    "required": true,
+                    "array": false,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "kreator_id_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "kreator_id"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "is_acticve_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "is_active"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "rate_card_orders",
+            "$permissions": [],
+            "databaseId": "6a016dd40034e14d50ff",
+            "name": "RATE_CARD_ORDERS",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "umkm_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 59,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "kreator_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "ratecard_id",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "judul_proyek",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "scope_pekerjaan",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "harga_final",
+                    "type": "double",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308
+                },
+                {
+                    "key": "deadline",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "url_collab_post",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "umkm_id_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "umkm_id"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "kreator_id_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "kreator_id"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "status_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "status"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "transactions",
+            "$permissions": [],
+            "databaseId": "6a016dd40034e14d50ff",
+            "name": "TRANSACTIONS",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "user_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "id_referensi",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "tipe_referensi",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 20,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "nominal",
+                    "type": "double",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308
+                },
+                {
+                    "key": "tipe",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 20,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "status",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 20,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "midtrans_order_id",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "keterangan",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "user_id_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "user_id"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "status_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "status"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "tipe_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "tipe"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "created_at_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "$createdAt"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "messages",
+            "$permissions": [],
+            "databaseId": "6a016dd40034e14d50ff",
+            "name": "MESSAGES",
+            "enabled": true,
+            "rowSecurity": false,
+            "columns": [
+                {
+                    "key": "order_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "sender_id",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "tipe_pesan",
+                    "type": "string",
+                    "required": true,
+                    "array": false,
+                    "size": 50,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "konten",
+                    "type": "text",
+                    "required": true,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "offer_data",
+                    "type": "text",
+                    "required": false,
+                    "array": false,
+                    "default": null,
+                    "encrypt": false
+                },
+                {
+                    "key": "is_read",
+                    "type": "boolean",
+                    "required": true,
+                    "array": false,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "order_id_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "order_id"
+                    ],
+                    "orders": [
+                        "asc"
+                    ]
+                },
+                {
+                    "key": "order_time_idx",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "order_id",
+                        "$createdAt"
+                    ],
+                    "orders": [
+                        "asc",
+                        "asc"
+                    ]
+                }
+            ]
+        }
+    ],
+    "buckets": [
+        {
+            "$id": "profile_images",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "fileSecurity": false,
+            "name": "Profile Images",
+            "enabled": true,
+            "maximumFileSize": 5000000,
+            "allowedFileExtensions": [],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
+        },
+        {
+            "$id": "campaign_assets",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "fileSecurity": false,
+            "name": "Campaign Assets",
+            "enabled": true,
+            "maximumFileSize": 100000000,
+            "allowedFileExtensions": [],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
+        }
+    ]
+}
