@@ -9,6 +9,7 @@ import '../../domain/usecases/get_campaign_by_id_usecase.dart';
 import '../../domain/usecases/create_campaign_usecase.dart';
 import '../../domain/usecases/generate_brief_usecase.dart';
 import '../controllers/campaign_controller.dart';
+import '../controllers/create_campaign_controller.dart';
 
 class CampaignBinding extends Bindings {
   @override
@@ -39,6 +40,14 @@ class CampaignBinding extends Bindings {
         getMyCampaignsUseCase: Get.find(),
         getActiveCampaignsUseCase: Get.find(),
         getCampaignByIdUseCase: Get.find(),
+        createCampaignUseCase: Get.find(),
+        generateBriefUseCase: Get.find(),
+      ),
+    );
+
+    // CreateCampaignController — terpisah dari CampaignController
+    Get.lazyPut<CreateCampaignController>(
+      () => CreateCampaignController(
         createCampaignUseCase: Get.find(),
         generateBriefUseCase: Get.find(),
       ),

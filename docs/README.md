@@ -535,35 +535,90 @@ Register global:
 
 ## 10. Progress & Status Implementasi
 
-### Status per Layer
+Berikut adalah pelacakan status pengembangan per modul untuk memonitor progres secara lebih rinci. Status dipisahkan berdasarkan segmentasi pengguna dan fitur fundamental (Shared/Core).
 
-| Layer | Status | Keterangan |
-|-------|--------|------------|
-| **Core — Fondasi** | ✅ Selesai | StorageService, Failures, Exceptions, NoParams, InitialBinding, main.dart, AppRoutes, AppPages |
-| **Core — Constants & Services** | ✅ Selesai | AppConstants, AppColors, AppTextStyles, AppSpacing, AppwriteService |
-| **Shared Widgets** | ✅ Selesai | PrimaryButton, LoadingShimmer, EmptyStateWidget, StatusBadge, WarningBanner |
-| **Auth — Data Layer** | ✅ Selesai | UserModel, AuthRemoteDataSource, AuthRepositoryImpl |
-| **Auth — Domain Layer** | ✅ Selesai | UserEntity, AuthRepository (abstract), LoginUseCase, RegisterUseCase, LogoutUseCase, GetCurrentUserUseCase, SendEmailVerificationUseCase |
-| **Auth — Presentation** | ✅ Selesai | AuthController, SplashController (Flow 1.5s delay + session check), AuthBinding, SplashBinding |
-| **Auth — UI** | ✅ Selesai | SplashPage (Clean), OnboardingPage (3 slides), WelcomePage (Gateway), LoginPage (Dynamic), RegisterPage (Dynamic), RoleSelectionPage (Mode-aware), AuthTextField |
-| **Campaign — Data Layer** | 🔄 Dalam Pengerjaan | CampaignModel, CampaignRemoteDataSource, CampaignRepositoryImpl |
-| **Campaign — Domain Layer** | 🔄 Dalam Pengerjaan | CampaignEntity, CampaignRepository, GetActiveCampaignsUseCase, GetMyCampaignsUseCase, GetCampaignByIdUseCase, CreateCampaignUseCase, GenerateBriefUseCase |
-| **Campaign — Presentation** | ⏳ Belum Dimulai | CampaignController, CampaignBinding |
-| **Campaign — UI** | ⏳ Belum Dimulai | CampaignListPage, CreateCampaignPage (wizard), CampaignDetailPage |
-| **Job Pool — Semua Layer** | ⏳ Belum Dimulai | — |
-| **Rate Card Mode — Semua Layer** | ⏳ Belum Dimulai | — |
-| **Chat (Realtime) — Semua Layer** | ⏳ Belum Dimulai | — |
-| **Keuangan & Escrow — Semua Layer** | ⏳ Belum Dimulai | — |
-| **Profile — Semua Layer** | ⏳ Belum Dimulai | — |
-| **Admin Panel — Semua Layer** | ⏳ Belum Dimulai | — |
-| **Appwrite Functions** | ⏳ Belum Dimulai | claim-campaign-fn, midtrans-webhook-fn, release-escrow-fn, refund-escrow-fn, validate-submission-fn, generate-brief-fn, withdraw-fn, admin-stats-fn |
+### 10.1 Fitur UMKM (Sisi Demand)
+
+Modul-modul ini secara khusus melayani pengguna dengan *role* UMKM untuk membuat kampanye, mencari kreator, dan melakukan pembayaran.
+
+| Fitur / Modul | Status | Keterangan Detail |
+|---------------|--------|-------------------|
+| **Manajemen Kampanye (Campaign Mode)** | ✅ Selesai | Sudah terimplementasi penuh (Data, Domain, Presentation, UI). Meliputi pembuatan model, repository, use cases (`CreateCampaignUseCase`, `GetMyCampaignsUseCase`), `CampaignController`, `CreateCampaignController`, UI `CampaignListPage`, serta Wizard `CreateCampaignPage` (4 langkah). |
+| **AI Brief Assistant** | ✅ Selesai | Terintegrasi di dalam wizard pembuatan kampanye (Step 1) memanggil `GenerateBriefUseCase`. |
+| **Direktori & Cari Kreator (Rate Card Mode)** | ⏳ Belum Dimulai | Halaman pencarian kreator, filter berdasarkan niche/rating, dan profil detail kreator. |
+| **Negosiasi & Custom Offer** | ⏳ Belum Dimulai | Antarmuka pembuatan penawaran (Custom Offer) untuk *fixed-price* project. |
+| **Keuangan (Deposit & Escrow)** | ⏳ Belum Dimulai | UI/UX untuk top-up/deposit via Midtrans dan riwayat penahanan dana (Escrow). |
+| **Profil UMKM** | ⏳ Belum Dimulai | Manajemen profil bisnis, edit info perusahaan, dsb. |
+
+### 10.2 Fitur Konten Kreator (Sisi Supply)
+
+Modul-modul ini melayani *role* KREATOR untuk mencari pekerjaan, mengunggah bukti tayang, serta menarik dana.
+
+| Fitur / Modul | Status | Keterangan Detail |
+|---------------|--------|-------------------|
+| **Job Pool (Bursa Kerja)** | ⏳ Belum Dimulai | Tampilan daftar kampanye aktif yang bisa diklaim kreator beserta filter (Niche, Harga). |
+| **Pekerjaan Aktif & Submit Bukti** | ⏳ Belum Dimulai | Halaman pelacakan job berjalan dan form *submit* URL video (TikTok/IG Reels) untuk validasi. |
+| **Manajemen Rate Card** | ⏳ Belum Dimulai | Halaman bagi kreator untuk mengatur maksimal 3 paket harga (*fixed-price*). |
+| **Negosiasi & Terima Order** | ⏳ Belum Dimulai | Antarmuka untuk menerima/menolak *Custom Offer* dari UMKM. |
+| **Keuangan (Withdrawal & Saldo)** | ⏳ Belum Dimulai | UI/UX penarikan dana ke rekening bank dan riwayat penghasilan. |
+| **Profil Kreator** | ⏳ Belum Dimulai | Manajemen portofolio, bio, dan koneksi akun media sosial. |
+
+### 10.3 Core Architecture & Shared Services
+
+Fondasi utama aplikasi, *design tokens*, dan pengaturan arsitektur dasar.
+
+| Fitur / Modul | Status | Keterangan Detail |
+|---------------|--------|-------------------|
+| **Core — Fondasi Arsitektur** | ✅ Selesai | Setup Clean Architecture (`Either`, `Failures`, `Exceptions`), `StorageService` untuk caching lokal, global DI (`InitialBinding`), dan routing (`AppRoutes`, `AppPages`). |
+| **Core — Design Tokens & UI Kit** | ✅ Selesai | Implementasi *design system* melalui `AppColors`, `AppSpacing`, `AppTextStyles`, serta komponen *reusable* (`PrimaryButton`, `WarningBanner`, `LoadingShimmer`, `StatusBadge`, `AuthTextField`). |
+| **Appwrite SDK & Datasource** | ✅ Selesai | Pembuatan Singleton `AppwriteService` yang mencakup inisialisasi layanan Databases, Account, Storage, Realtime, dan Functions. |
+
+### 10.4 Autentikasi & Manajemen Akun (Auth)
+
+Sistem keamanan untuk pintu masuk dan manajemen data sesi pengguna.
+
+| Fitur / Modul | Status | Keterangan Detail |
+|---------------|--------|-------------------|
+| **Autentikasi (End-to-End)** | ✅ Selesai | Telah diimplementasikan penuh (Data, Domain, Presentation, UI). Mencakup flow login, registrasi, pemilihan *role* (UMKM/Kreator), *forgot password*, dan verifikasi email. |
+| **Onboarding & Splash Flow** | ✅ Selesai | Animasi dan pengecekan sesi saat aplikasi baru dibuka, mengarahkan ke halaman *Welcome* atau langsung ke Dashboard jika sesi masih valid. |
+
+### 10.5 Fitur Realtime & Komunikasi
+
+Infrastruktur komunikasi langsung yang mendukung interaksi negosiasi (hanya berlaku pada Rate Card Mode).
+
+| Fitur / Modul | Status | Keterangan Detail |
+|---------------|--------|-------------------|
+| **Live Chat (Appwrite Realtime)** | ⏳ Belum Dimulai | Implementasi ruang obrolan *realtime* antara UMKM dan Kreator untuk keperluan negosiasi harga dan *custom offer*. |
+| **In-App Notification** | ⏳ Belum Dimulai | Sistem notifikasi lokal / *push* untuk pembaruan status kampanye, job yang diklaim, dana cair, atau pesan baru. |
+
+### 10.6 Panel Admin & Moderasi
+
+Modul yang dikhususkan bagi administrator sistem untuk pengawasan dan resolusi konflik.
+
+| Fitur / Modul | Status | Keterangan Detail |
+|---------------|--------|-------------------|
+| **Verifikasi & Moderasi User** | ⏳ Belum Dimulai | Mode *read-only* (di mobile) untuk melihat dan memvalidasi akun UMKM maupun Kreator. |
+| **Sengketa (Disputes)** | ⏳ Belum Dimulai | Modul penanganan masalah (misalnya komplain UMKM terhadap bukti tayang kreator). |
+| **Persetujuan Pencairan Dana** | ⏳ Belum Dimulai | Laporan dan panel persetujuan *withdrawal* dana kreator dari sistem *escrow*. |
+
+### 10.7 Backend Infrastructure (Appwrite Functions)
+
+Logika pemrosesan di sisi *serverless* untuk menunjang keamanan dan layanan pihak ketiga.
+
+| Fitur / Modul | Status | Keterangan Detail |
+|---------------|--------|-------------------|
+| **AI Brief Generation** | 🔄 Dalam Pengerjaan | Skrip fungsi `generate-brief-fn` di backend yang menghubungi API OpenAI. (Integrasi UI sudah memanggil ID function ini). |
+| **Payment Gateway (Midtrans)** | ⏳ Belum Dimulai | Endpoint webhook `midtrans-webhook-fn` untuk menerima konfirmasi dari Midtrans saat pembayaran deposit berhasil/gagal. |
+| **Escrow & Withdrawal Engine** | ⏳ Belum Dimulai | Fungsi `release-escrow-fn`, `refund-escrow-fn`, dan `withdraw-fn` untuk pemindahan dana yang aman tanpa membebani _client_. |
+| **Validasi Submission** | ⏳ Belum Dimulai | Skrip `validate-submission-fn` untuk memvalidasi *link* URL video bukti tayang yang diserahkan kreator. |
+
+---
 
 ### Legend
-- ✅ Selesai — sudah diimplementasi dan compile
-- 🔄 Dalam Pengerjaan — prompt sudah dibuat, sedang dieksekusi
-- ⏳ Belum Dimulai — terjadwal, belum ada kode
+- ✅ **Selesai** — Sudah diimplementasi, telah melalui linting (`flutter analyze`), sesuai arsitektur, dan *production-ready*.
+- 🔄 **Dalam Pengerjaan** — Prompt sudah dibuat atau kode masih dalam tahap penyelesaian parsial.
+- ⏳ **Belum Dimulai** — Terjadwal pada backlog, belum ada eksekusi kode.
 
-### Catatan Sesi
-- **Redesign Flow Auth & UI Polishing** — Implementasi alur Splash -> Onboarding -> Welcome -> Role Selection -> Login/Register selesai. Semua halaman sudah menggunakan spesifikasi UI terbaru, teks Bahasa Indonesia yang ramah, dan penanganan argumen dinamis (role & mode).
-- **Fondasi Dasar** — Auth implementation, backend infrastructure & database modeling selesai.
-
+### Catatan Sesi Terakhir
+- **Penyelesaian Flow Autentikasi** — Perbaikan navigasi loop, implementasi argumen halaman berbasis mode, dan penyempurnaan `Splash` hingga `Login/Register`.
+- **Implementasi Wizard Create Campaign (UMKM)** — Modul pembuatan kampanye untuk UMKM telah rampung beserta 4-step wizard UI (Informasi Produk, Upload Aset, Budget & Kuota, Review), lengkap dengan kalkulator finansial reaktif menggunakan `GetBuilder` dan integrasi *AI Brief Assistant*. Semua *lint warning* terkait `create_campaign` sudah dibersihkan.

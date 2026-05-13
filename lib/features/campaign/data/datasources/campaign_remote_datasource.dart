@@ -161,7 +161,7 @@ class CampaignRemoteDataSourceImpl implements CampaignRemoteDataSource {
         method: enums.ExecutionMethod.pOST,
       );
 
-      if (response.status == 'completed') {
+      if (response.status.toString().contains('completed')) {
         final data = jsonDecode(response.responseBody);
         return data['brief'] as String;
       } else {

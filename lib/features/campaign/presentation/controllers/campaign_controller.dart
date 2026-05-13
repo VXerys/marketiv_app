@@ -30,6 +30,16 @@ class CampaignController extends GetxController {
   final _campaigns = <CampaignEntity>[].obs;
   List<CampaignEntity> get campaigns => _campaigns;
 
+  // Filter state
+  final _activeFilter = 'Semua'.obs;
+  String get activeFilter => _activeFilter.value;
+
+  // List yang sudah difilter (client-side)
+  List<CampaignEntity> get filteredCampaigns {
+    if (_activeFilter.value == 'Semua') return _campaigns;
+    return _campaigns.where((c) => c.status == _activeFilter.value).toList();
+  }
+
   final _selectedCampaign = Rxn<CampaignEntity>();
   CampaignEntity? get selectedCampaign => _selectedCampaign.value;
 
@@ -73,6 +83,12 @@ class CampaignController extends GetxController {
     _isLoading.value = false;
   }
 
+  // Alias untuk pull-to-refresh
+  Future<void> refreshCampaigns(String umkmId) async {
+    _isLoading.value = false; // Tidak tampilkan shimmer penuh
+    await loadMyCampaigns(umkmId);
+  }
+
   Future<void> loadActiveCampaigns({String? niche, double? minHarga, double? maxHarga}) async {
     _isLoading.value = true;
     _errorMessage.value = '';
@@ -89,6 +105,10 @@ class CampaignController extends GetxController {
     );
     
     _isLoading.value = false;
+  }
+
+  void setFilter(String filter) {
+    _activeFilter.value = filter;
   }
 
   Future<void> selectCampaign(String id) async {
