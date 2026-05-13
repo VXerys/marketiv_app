@@ -544,8 +544,8 @@ Register global:
 | **Shared Widgets** | ✅ Selesai | PrimaryButton, LoadingShimmer, EmptyStateWidget, StatusBadge, WarningBanner |
 | **Auth — Data Layer** | ✅ Selesai | UserModel, AuthRemoteDataSource, AuthRepositoryImpl |
 | **Auth — Domain Layer** | ✅ Selesai | UserEntity, AuthRepository (abstract), LoginUseCase, RegisterUseCase, LogoutUseCase, GetCurrentUserUseCase, SendEmailVerificationUseCase |
-| **Auth — Presentation** | ✅ Selesai | AuthController, SplashController, AuthBinding, SplashBinding |
-| **Auth — UI** | ✅ Selesai | SplashPage, LoginPage, RegisterPage, RoleSelectionPage, AuthTextField |
+| **Auth — Presentation** | ✅ Selesai | AuthController, SplashController (Flow 1.5s delay + session check), AuthBinding, SplashBinding |
+| **Auth — UI** | ✅ Selesai | SplashPage (Clean), OnboardingPage (3 slides), WelcomePage (Gateway), LoginPage (Dynamic), RegisterPage (Dynamic), RoleSelectionPage (Mode-aware), AuthTextField |
 | **Campaign — Data Layer** | 🔄 Dalam Pengerjaan | CampaignModel, CampaignRemoteDataSource, CampaignRepositoryImpl |
 | **Campaign — Domain Layer** | 🔄 Dalam Pengerjaan | CampaignEntity, CampaignRepository, GetActiveCampaignsUseCase, GetMyCampaignsUseCase, GetCampaignByIdUseCase, CreateCampaignUseCase, GenerateBriefUseCase |
 | **Campaign — Presentation** | ⏳ Belum Dimulai | CampaignController, CampaignBinding |
@@ -564,5 +564,6 @@ Register global:
 - ⏳ Belum Dimulai — terjadwal, belum ada kode
 
 ### Catatan Sesi
-- **Setup docs & rules, auth implementation, backend infrastructure & database modeling** — fondasi arsitektur, dokumen spesifikasi, skill Copilot, dan implementasi Auth selesai dalam satu sesi kerja.
+- **Redesign Flow Auth & UI Polishing** — Implementasi alur Splash -> Onboarding -> Welcome -> Role Selection -> Login/Register selesai. Semua halaman sudah menggunakan spesifikasi UI terbaru, teks Bahasa Indonesia yang ramah, dan penanganan argumen dinamis (role & mode).
+- **Fondasi Dasar** — Auth implementation, backend infrastructure & database modeling selesai.
 
