@@ -9,6 +9,8 @@ import '../../features/auth/domain/usecases/register_usecase.dart';
 import '../../features/auth/domain/usecases/logout_usecase.dart';
 import '../../features/auth/domain/usecases/get_current_user_usecase.dart';
 import '../../features/auth/domain/usecases/send_email_verification_usecase.dart';
+import '../../features/auth/domain/usecases/send_password_reset_usecase.dart';
+import '../../features/auth/domain/usecases/confirm_password_reset_usecase.dart';
 
 class InitialBinding extends Bindings {
   @override
@@ -29,14 +31,16 @@ class InitialBinding extends Bindings {
     );
     
     Get.lazyPut<AuthRepository>(
-      () => AuthRepositoryImpl(remoteDataSource: Get.find<AuthRemoteDataSource>()),
+      () => AuthRepositoryImpl(dataSource: Get.find<AuthRemoteDataSource>()),
       fenix: true,
     );
 
-    Get.lazyPut(() => LoginUseCase(Get.find()), fenix: true);
-    Get.lazyPut(() => RegisterUseCase(Get.find()), fenix: true);
-    Get.lazyPut(() => LogoutUseCase(Get.find()), fenix: true);
-    Get.lazyPut(() => GetCurrentUserUseCase(Get.find()), fenix: true);
-    Get.lazyPut(() => SendEmailVerificationUseCase(Get.find()), fenix: true);
+    Get.lazyPut(() => LoginUseCase(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => RegisterUseCase(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => LogoutUseCase(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => GetCurrentUserUseCase(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => SendEmailVerificationUseCase(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => SendPasswordResetUseCase(repository: Get.find()), fenix: true);
+    Get.lazyPut(() => ConfirmPasswordResetUseCase(repository: Get.find()), fenix: true);
   }
 }

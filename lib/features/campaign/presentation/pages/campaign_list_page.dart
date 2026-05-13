@@ -5,8 +5,11 @@ class CampaignListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Campaign List Page')),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Campaign List')),
+      body: const Center(
+        child: Text('Campaign List Page'),
+      ),
     );
   }
 }

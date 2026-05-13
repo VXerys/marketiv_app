@@ -29,12 +29,11 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _handleLogin(String role) {
+  void _handleLogin() {
     if (_formKey.currentState!.validate()) {
       _authController.login(
         _emailController.text.trim(),
         _passwordController.text,
-        role,
       );
     }
   }
@@ -146,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          // TODO: Implement Forgot Password
+                          Get.toNamed(Routes.forgotPassword);
                         },
                         style: TextButton.styleFrom(
                           foregroundColor: AppColors.primary500,
@@ -173,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: _authController.isLoading 
                             ? null 
-                            : () => _handleLogin(role),
+                            : () => _handleLogin(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary500,
                           foregroundColor: Colors.white,

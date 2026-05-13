@@ -267,11 +267,11 @@ class RegisterPage extends GetView<AuthController> {
       }
 
       controller.register(
-        _namaController.text.trim(),
-        _emailController.text.trim(),
-        _passwordController.text,
-        _whatsappController.text.trim(),
-        role,
+        namaLengkap: _namaController.text.trim(),
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+        nomorWhatsapp: _whatsappController.text.trim(),
+        role: role,
       );
     }
   }

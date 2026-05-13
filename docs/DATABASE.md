@@ -107,7 +107,8 @@ Menyimpan identitas semua aktor sistem (UMKM, Kreator, Admin).
 | `user_id`         | String   | ✅       | —       | Sama dengan Appwrite Auth `$id` (link ke account) |
 | `role`            | Enum     | ✅       | —       | `UMKM` / `KREATOR` / `ADMIN` |
 | `nama_lengkap`    | String   | ✅       | —       | max 100 char |
-| `nomor_whatsapp`  | String   | ❌       | null    | |
+| `email`           | Email    | ✅       | —       | Duplikat dari Auth untuk kemudahan query |
+| `nomor_whatsapp`  | String   | ✅       | —       | |
 | `dompet_saldo`    | Float    | ✅       | 0       | Saldo kreator yang bisa di-withdraw |
 | `niche`           | String   | ❌       | null    | kuliner, fesyen, edukasi, dll |
 | `foto_profil_url` | String   | ❌       | null    | URL dari Appwrite Storage |
@@ -116,7 +117,7 @@ Menyimpan identitas semua aktor sistem (UMKM, Kreator, Admin).
 | `fcm_token`       | String   | ❌       | null    | Alamat unik perangkat untuk notifikasi (Size 255) |
 | `unread_count`    | Integer  | ✅       | 0       | Jumlah notifikasi belum dibaca (Min 0) |
 
-> **Catatan:** `email` dan `password` dikelola sepenuhnya oleh **Appwrite Auth** — tidak disimpan di collection `users`. Gunakan `account.get()` untuk membaca email user yang sedang login.
+> **Catatan:** `email` kini diduplikasi ke collection `users` untuk mendukung query list/search yang lebih efisien tanpa harus memanggil Account API berulang kali.
 
 ### 2.2 Index
 

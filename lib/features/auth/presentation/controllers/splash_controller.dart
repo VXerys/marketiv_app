@@ -34,10 +34,10 @@ class SplashController extends GetxController {
       } else {
         Get.offAllNamed(Routes.welcome);
       }
-    } on AppwriteException catch (e) {
+    } on AppwriteException catch (_) {
       // code 401: Unauthorized (no session)
       Get.offAllNamed(Routes.welcome);
-    } catch (e) {
+    } catch (_) {
       // Error lain
       Get.offAllNamed(Routes.welcome);
     }

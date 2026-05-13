@@ -3,6 +3,7 @@ class UserEntity {
   final String userId;
   final String role;
   final String namaLengkap;
+  final String email;
   final String? nomorWhatsapp;
   final double dompetSaldo;
   final String? niche;
@@ -17,6 +18,7 @@ class UserEntity {
     required this.userId,
     required this.role,
     required this.namaLengkap,
+    required this.email,
     this.nomorWhatsapp,
     this.dompetSaldo = 0.0,
     this.niche,

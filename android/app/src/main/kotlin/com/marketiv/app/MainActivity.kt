@@ -1,4 +1,4 @@
-package com.example.marketiv_app
+package com.marketiv.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -35,7 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   get: ^4.7.3
-  appwrite: ^14.0.0
+  appwrite: 24.0.0
   get_storage: ^2.1.1
   dartz: ^0.10.1
   flutter_dotenv: ^6.0.0

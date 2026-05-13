@@ -9,6 +9,9 @@ import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/pages/role_selection_page.dart';
+import '../../features/auth/presentation/pages/email_verification_page.dart';
+import '../../features/auth/presentation/pages/forgot_password_page.dart';
+import '../../features/auth/presentation/pages/reset_password_page.dart';
 import '../../features/campaign/presentation/bindings/campaign_binding.dart';
 import '../../features/campaign/presentation/pages/campaign_list_page.dart';
 import '../../features/campaign/presentation/pages/create_campaign_page.dart';
@@ -90,5 +93,28 @@ class AppPages {
     // Shared
     // TODO: static const editProfile  = '/profile/edit';
     // TODO: static const notification = '/notification';
+    GetPage(
+      name: Routes.emailVerification,
+      page: () => const EmailVerificationPage(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.forgotPassword,
+      page: () => const ForgotPasswordPage(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.resetPassword,
+      page: () => const ResetPasswordPage(),
+      binding: AuthBinding(),
+    ),
+    GetPage(
+      name: Routes.welcome,
+      page: () => const WelcomePage(),
+    ),
+    GetPage(
+      name: Routes.roleSelection,
+      page: () => const RoleSelectionPage(),
+    ),
   ];
 }

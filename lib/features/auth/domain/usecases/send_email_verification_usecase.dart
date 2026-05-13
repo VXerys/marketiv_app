@@ -6,7 +6,7 @@ import '../repositories/auth_repository.dart';
 class SendEmailVerificationUseCase implements UseCase<void, NoParams> {
   final AuthRepository repository;
 
-  SendEmailVerificationUseCase(this.repository);
+  SendEmailVerificationUseCase({required this.repository});
 
   @override
   Future<Either<Failure, void>> call(NoParams params) async {

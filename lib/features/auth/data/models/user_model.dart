@@ -5,6 +5,7 @@ class UserModel {
   final String userId;
   final String role;
   final String namaLengkap;
+  final String email;
   final String? nomorWhatsapp;
   final double dompetSaldo;
   final String? niche;
@@ -20,6 +21,7 @@ class UserModel {
     required this.userId,
     required this.role,
     required this.namaLengkap,
+    required this.email,
     this.nomorWhatsapp,
     this.dompetSaldo = 0.0,
     this.niche,
@@ -37,6 +39,7 @@ class UserModel {
       userId: data['user_id'],
       role: data['role'],
       namaLengkap: data['nama_lengkap'],
+      email: data['email'] ?? '',
       nomorWhatsapp: data['nomor_whatsapp'],
       dompetSaldo: (data['dompet_saldo'] as num).toDouble(),
       niche: data['niche'] as String?,
@@ -54,6 +57,7 @@ class UserModel {
       'user_id': userId,
       'role': role,
       'nama_lengkap': namaLengkap,
+      'email': email,
       'nomor_whatsapp': nomorWhatsapp,
       'dompet_saldo': dompetSaldo,
       'niche': niche,
@@ -71,6 +75,7 @@ class UserModel {
       userId: userId,
       role: role,
       namaLengkap: namaLengkap,
+      email: email,
       nomorWhatsapp: nomorWhatsapp,
       dompetSaldo: dompetSaldo,
       niche: niche,

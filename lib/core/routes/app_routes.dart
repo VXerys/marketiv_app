@@ -4,7 +4,7 @@ abstract class Routes {
   static const login         = '/login';
   static const register      = '/register';
   static const welcome       = '/welcome';
-  static const roleSelection = '/role-selection';
+  static const roleSelection = '/auth/role-selection';
 
   // UMKM
   static const umkmHome        = '/umkm/home';
@@ -28,6 +28,9 @@ abstract class Routes {
   static const adminHome = '/admin';
 
   // Shared
-  static const editProfile  = '/profile/edit';
-  static const notification = '/notification';
+  static const editProfile       = '/profile/edit';
+  static const notification      = '/notification';
+  static const emailVerification = '/auth/email-verification';
+  static const forgotPassword    = '/auth/forgot-password';
+  static const resetPassword     = '/auth/reset-password';
 }
