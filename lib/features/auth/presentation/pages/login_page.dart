@@ -4,7 +4,6 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../../shared/widgets/primary_button.dart';
 import '../controllers/auth_controller.dart';
 import '../widgets/auth_text_field.dart';
 
@@ -16,20 +15,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final AuthController controller = Get.find<AuthController>();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthController _authController = Get.find<AuthController>();
+  final _formKey = GlobalKey<FormState>();
   
-  late final TextEditingController _emailController;
-  late final TextEditingController _passwordController;
-  
-  final RxBool _obscurePassword = true.obs;
-
-  @override
-  void initState() {
-    super.initState();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-  }
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _obscurePassword = true.obs;
 
   @override
   void dispose() {
@@ -38,189 +29,210 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _onLoginPressed() {
-    if (_formKey.currentState?.validate() ?? false) {
-      final email = _emailController.text.trim();
-      final password = _passwordController.text;
-
-      // Manual check as requested by prompt for snacks
-      if (email.isEmpty) {
-        Get.snackbar(
-          'Perhatian',
-          'Email tidak boleh kosong',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: AppColors.danger,
-          colorText: Colors.white,
-          margin: const EdgeInsets.all(AppSpacing.md),
-        );
-        return;
-      }
-
-      if (password.length < 8) {
-        Get.snackbar(
-          'Perhatian',
-          'Kata sandi minimal 8 karakter',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: AppColors.danger,
-          colorText: Colors.white,
-          margin: const EdgeInsets.all(AppSpacing.md),
-        );
-        return;
-      }
-
-      controller.login(email, password);
+  void _handleLogin(String role) {
+    if (_formKey.currentState!.validate()) {
+      _authController.login(
+        _emailController.text.trim(),
+        _passwordController.text,
+        role,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // 1. Dapatkan argument role
+    final dynamic args = Get.arguments;
+    String role = 'UMKM';
+    if (args is Map && args.containsKey('role')) {
+      role = args['role'];
+    } else if (args is String) {
+      role = args;
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.secondary500),
+          onPressed: () => Get.back(),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: AppSpacing.lg),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40), // Safe area top offset approx
+              const SizedBox(height: AppSpacing.md),
               
-              // === BAGIAN ATAS (Header) ===
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.storefront,
-                      size: 48,
+              // HEADING DENGAN BADGE
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(AppSpacing.sm),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary500.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      role == 'UMKM' ? Icons.storefront_rounded : Icons.movie_creation_outlined,
                       color: AppColors.primary500,
+                      size: 24,
                     ),
-                    const SizedBox(height: AppSpacing.sm),
-                    Text(
-                      'Masuk ke Marketiv',
-                      style: AppTextStyles.h2.copyWith(color: AppColors.secondary500),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: AppSpacing.xs),
-                    Text(
-                      'Selamat datang kembali!',
-                      style: AppTextStyles.bodyMedium.copyWith(color: AppColors.grey500),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
+                  ),
+                  const SizedBox(width: AppSpacing.sm),
+                  Text(
+                    role == 'UMKM' ? 'Masuk sebagai UMKM' : 'Masuk sebagai Kreator',
+                    style: AppTextStyles.h2.copyWith(color: AppColors.secondary700),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.xs),
+              Padding(
+                padding: const EdgeInsets.only(left: 48.0),
+                child: Text(
+                  'Selamat datang kembali di platform Marketiv',
+                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.grey500),
                 ),
               ),
               
-              const SizedBox(height: AppSpacing.xl),
-              
-              // === BAGIAN FORM (Card) ===
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black.withValues(alpha: 0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
+              const SizedBox(height: AppSpacing.xxl),
+
+              // FORM
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    AuthTextField(
+                      label: 'Alamat Email',
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: Icons.email_outlined,
+                      hint: 'cth: nama@email.com',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email tidak boleh kosong ya';
+                        }
+                        if (!GetUtils.isEmail(value)) {
+                          return 'Format email sepertinya salah';
+                        }
+                        return null;
+                      },
                     ),
-                  ],
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      AuthTextField(
-                        label: 'Email',
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        prefixIcon: Icons.email_outlined,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Email tidak boleh kosong';
-                          }
-                          if (!GetUtils.isEmail(value)) {
-                            return 'Format email tidak valid';
-                          }
-                          return null;
+                    const SizedBox(height: AppSpacing.md),
+                    Obx(() => AuthTextField(
+                      label: 'Kata Sandi',
+                      controller: _passwordController,
+                      prefixIcon: Icons.lock_outline,
+                      obscureText: _obscurePassword.value,
+                      onToggleObscure: () => _obscurePassword.toggle(),
+                      hint: 'Masukkan kata sandi kamu',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Kata sandi jangan dikosongkan ya';
+                        }
+                        if (value.length < 8) {
+                          return 'Kata sandi minimal 8 karakter';
+                        }
+                        return null;
+                      },
+                    )),
+                    
+                    // Lupa Password
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          // TODO: Implement Forgot Password
                         },
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      Obx(() => AuthTextField(
-                        label: 'Kata Sandi',
-                        controller: _passwordController,
-                        prefixIcon: Icons.lock_outline,
-                        obscureText: _obscurePassword.value,
-                        onToggleObscure: () => _obscurePassword.toggle(),
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) => _onLoginPressed(),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Kata sandi tidak boleh kosong';
-                          }
-                          if (value.length < 8) {
-                            return 'Kata sandi minimal 8 karakter';
-                          }
-                          return null;
-                        },
-                      )),
-                      const SizedBox(height: AppSpacing.sm),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            // TODO: Navigate to Forgot Password
-                          },
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                            minimumSize: const Size(48, 40),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: const Text(
-                            'Lupa Kata Sandi?',
-                            style: TextStyle(
-                              color: AppColors.primary500,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                            ),
+                        style: TextButton.styleFrom(
+                          foregroundColor: AppColors.primary500,
+                          padding: EdgeInsets.zero,
+                          minimumSize: const Size(48, 48),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        child: Text(
+                          'Lupa Password?',
+                          style: AppTextStyles.labelMedium.copyWith(
+                            color: AppColors.primary500,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      const SizedBox(height: AppSpacing.md),
-                      Obx(() => PrimaryButton(
-                        label: 'Masuk',
-                        isLoading: controller.isLoading,
-                        onPressed: _onLoginPressed,
-                      )),
-                    ],
-                  ),
+                    ),
+                    
+                    const SizedBox(height: AppSpacing.xl),
+
+                    // Tombol Masuk
+                    Obx(() => SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: ElevatedButton(
+                        onPressed: _authController.isLoading 
+                            ? null 
+                            : () => _handleLogin(role),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary500,
+                          foregroundColor: Colors.white,
+                          disabledBackgroundColor: AppColors.grey300,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: _authController.isLoading
+                            ? const SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(
+                                'Masuk',
+                                style: AppTextStyles.buttonText,
+                              ),
+                      ),
+                    )),
+                  ],
                 ),
               ),
               
               const SizedBox(height: AppSpacing.xl),
-              
-              // === FOOTER (Register Link) ===
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Belum punya akun?',
-                    style: AppTextStyles.bodyMedium.copyWith(color: AppColors.grey700),
-                  ),
-                  TextButton(
-                    onPressed: () => Get.toNamed(Routes.register),
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      minimumSize: const Size(48, 48),
+
+              // FOOTER
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Belum punya akun? ',
+                      style: AppTextStyles.bodyLarge.copyWith(color: AppColors.grey500),
                     ),
-                    child: Text(
-                      'Daftar Sekarang',
-                      style: AppTextStyles.labelMedium.copyWith(color: AppColors.primary500),
+                    TextButton(
+                      onPressed: () => Get.toNamed(
+                        Routes.register,
+                        arguments: {'role': role},
+                      ),
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        minimumSize: const Size(48, 48),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Text(
+                        'Daftar',
+                        style: AppTextStyles.bodyLarge.copyWith(
+                          color: AppColors.primary500,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

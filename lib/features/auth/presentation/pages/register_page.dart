@@ -24,8 +24,15 @@ class RegisterPage extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    // Role bisa diambil dari Get.arguments atau parameter route
-    final String role = Get.arguments as String? ?? 'UMKM';
+    // Role bisa diambil dari Get.arguments (Map) atau parameter route
+    final dynamic args = Get.arguments;
+    String role = 'UMKM';
+    
+    if (args is String) {
+      role = args;
+    } else if (args is Map) {
+      role = args['role'] ?? 'UMKM';
+    }
 
     return Scaffold(
       backgroundColor: AppColors.background,

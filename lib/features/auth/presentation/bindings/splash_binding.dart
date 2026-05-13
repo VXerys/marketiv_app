@@ -6,6 +6,6 @@ class SplashBinding extends Bindings {
   void dependencies() {
     // Use Get.put (not lazyPut) so the controller is immediately available
     // when SplashPage's GetView<SplashController> accesses it during build.
-    Get.put(SplashController(Get.find()));
+    Get.put(SplashController());
   }
 }

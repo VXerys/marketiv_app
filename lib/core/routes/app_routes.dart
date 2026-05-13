@@ -3,6 +3,7 @@ abstract class Routes {
   static const onboarding    = '/onboarding';
   static const login         = '/login';
   static const register      = '/register';
+  static const welcome       = '/welcome';
   static const roleSelection = '/role-selection';
 
   // UMKM

@@ -4,6 +4,8 @@ import 'app_routes.dart';
 import '../../features/auth/presentation/bindings/auth_binding.dart';
 import '../../features/auth/presentation/bindings/splash_binding.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
+import '../../features/auth/presentation/pages/onboarding_page.dart';
+import '../../features/auth/presentation/pages/welcome_page.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/auth/presentation/pages/role_selection_page.dart';
@@ -34,7 +36,11 @@ class AppPages {
     ),
     GetPage(
       name: Routes.onboarding,
-      page: () => const RoleSelectionPage(),
+      page: () => const OnboardingPage(),
+    ),
+    GetPage(
+      name: Routes.welcome,
+      page: () => const WelcomePage(),
     ),
     GetPage(
       name: Routes.roleSelection,

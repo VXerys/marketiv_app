@@ -38,6 +38,9 @@ class StorageService {
 
   static bool isLoggedIn() => getUserId() != null;
 
+  static bool hasSeenOnboarding() => _box.read<bool>('has_seen_onboarding') ?? false;
+  static void setSeenOnboarding() => _box.write('has_seen_onboarding', true);
+
   static void clearAll() {
     _box.erase();
   }

@@ -22,8 +22,8 @@ class SplashPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Icon(
-              Icons.storefront,
-              size: 80,
+              Icons.rocket_launch_rounded,
+              size: 100,
               color: Colors.white,
             ),
 
@@ -43,13 +43,6 @@ class SplashPage extends StatelessWidget {
               style: AppTextStyles.bodyMedium.copyWith(
                 color: Colors.white70,
               ),
-            ),
-
-            const SizedBox(height: AppSpacing.xxl),
-
-            const CircularProgressIndicator(
-              color: AppColors.primary500,
-              strokeWidth: 3,
             ),
           ],
         ),

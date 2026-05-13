@@ -10,15 +10,28 @@ class RoleSelectionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 1. Dapatkan argument mode
+    final dynamic args = Get.arguments;
+    String mode = 'register'; // Default
+    if (args is Map && args.containsKey('mode')) {
+      mode = args['mode'];
+    }
+
+    // 2. Heading dinamis
+    final String heading = mode == 'login' ? 'Masuk Sebagai' : 'Pilih Peranmu';
+    final String subtitle = mode == 'login' 
+        ? 'Kamu terdaftar sebagai...' 
+        : 'Buat akun baru sebagai...';
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        centerTitle: false,
-        leading: Navigator.canPop(context)
-            ? const BackButton(color: AppColors.secondary500)
-            : null,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new, color: AppColors.secondary500),
+          onPressed: () => Get.back(),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -26,62 +39,46 @@ class RoleSelectionPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // HEADER
               const SizedBox(height: AppSpacing.md),
+              // HEADER
               Text(
-                'Saya adalah...',
-                style: AppTextStyles.h2.copyWith(color: AppColors.secondary500),
+                heading,
+                style: AppTextStyles.h2.copyWith(color: AppColors.secondary700),
               ),
               const SizedBox(height: AppSpacing.xs),
               Text(
-                'Pilih peran untuk melanjutkan',
+                subtitle,
                 style: AppTextStyles.bodyMedium.copyWith(color: AppColors.grey500),
               ),
-              const SizedBox(height: AppSpacing.xl),
+              
+              const SizedBox(height: AppSpacing.xxl),
 
-              // ROLE SELECTION CARDS
-              _buildRoleCard(
+              // ROLE CARDS
+              _buildLargeRoleCard(
                 title: 'Pemilik UMKM',
-                subtitle: 'Buat campaign, bayar sesuai tayangan nyata',
-                icon: Icons.store_rounded,
-                onTap: () => Get.toNamed(Routes.register, arguments: 'UMKM'),
+                description: 'Saya ingin mempromosikan produk atau usaha saya',
+                icon: Icons.storefront_rounded,
+                accentColor: AppColors.primary500,
+                onTap: () {
+                  final route = mode == 'login' ? Routes.login : Routes.register;
+                  Get.toNamed(route, arguments: {'role': 'UMKM'});
+                },
               ),
-              const SizedBox(height: AppSpacing.md),
-              _buildRoleCard(
-                title: 'Kreator Konten',
-                subtitle: 'Klaim job, buat video, dapat bayaran aman',
-                icon: Icons.videocam_rounded,
-                onTap: () => Get.toNamed(Routes.register, arguments: 'KREATOR'),
+              
+              const SizedBox(height: AppSpacing.lg),
+
+              _buildLargeRoleCard(
+                title: 'Konten Kreator',
+                description: 'Saya ingin mendapat job konten dan penghasilan tambahan',
+                icon: Icons.movie_creation_outlined,
+                accentColor: AppColors.secondary500,
+                onTap: () {
+                  final route = mode == 'login' ? Routes.login : Routes.register;
+                  Get.toNamed(route, arguments: {'role': 'KREATOR'});
+                },
               ),
               
               const SizedBox(height: AppSpacing.xl),
-
-              // BOTTOM SECTION
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Sudah punya akun? ',
-                    style: AppTextStyles.bodyMedium.copyWith(color: AppColors.grey500),
-                  ),
-                  TextButton(
-                    onPressed: () => Get.offNamed(Routes.login),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: const Size(0, 0),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    child: Text(
-                      'Masuk',
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        color: AppColors.primary500,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: AppSpacing.lg),
             ],
           ),
         ),
@@ -89,48 +86,64 @@ class RoleSelectionPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRoleCard({
+  Widget _buildLargeRoleCard({
     required String title,
-    required String subtitle,
+    required String description,
     required IconData icon,
+    required Color accentColor,
     required VoidCallback onTap,
   }) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(AppSpacing.lg),
-          decoration: BoxDecoration(
-            color: AppColors.surface,
-            borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-            border: Border.all(color: AppColors.primary500, width: 2),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black.withValues(alpha: 0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 56, color: AppColors.primary500),
-              const SizedBox(height: AppSpacing.md),
-              Text(
-                title,
-                style: AppTextStyles.h3.copyWith(color: AppColors.secondary500),
-              ),
-              const SizedBox(height: AppSpacing.sm),
-              Text(
-                subtitle,
-                style: AppTextStyles.bodySmall.copyWith(color: AppColors.grey500),
-                textAlign: TextAlign.center,
-              ),
-            ],
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.lg),
+            child: Row(
+              children: [
+                // Icon Wrapper
+                Container(
+                  padding: const EdgeInsets.all(AppSpacing.md),
+                  decoration: BoxDecoration(
+                    color: accentColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+                  ),
+                  child: Icon(icon, size: 40, color: accentColor),
+                ),
+                const SizedBox(width: AppSpacing.lg),
+                // Text Content
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: AppTextStyles.h3.copyWith(color: AppColors.secondary700),
+                      ),
+                      const SizedBox(height: AppSpacing.xs),
+                      Text(
+                        description,
+                        style: AppTextStyles.bodySmall.copyWith(color: AppColors.grey500),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.chevron_right_rounded, color: AppColors.grey300),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,14 +1,10 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:get/get.dart';
 import '../../../../core/routes/app_routes.dart';
 import '../../../../core/services/storage_service.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../../domain/usecases/get_current_user_usecase.dart';
+import '../../../../core/services/appwrite_service.dart';
 
 class SplashController extends GetxController {
-  final GetCurrentUserUseCase _getCurrentUserUseCase;
-
-  SplashController(this._getCurrentUserUseCase);
-
   @override
   void onInit() {
     super.onInit();
@@ -16,31 +12,35 @@ class SplashController extends GetxController {
   }
 
   Future<void> _startSplash() async {
-    await Future.delayed(const Duration(seconds: 2));
-    await checkSession();
-  }
+    // 1. Tunggu 1.5 detik (brand impression)
+    await Future.delayed(const Duration(milliseconds: 1500));
+    
+    // 2. Cek apakah first launch
+    final bool hasSeenOnboarding = StorageService.hasSeenOnboarding();
+    if (!hasSeenOnboarding) {
+      Get.offAllNamed(Routes.onboarding);
+      return;
+    }
 
-  Future<void> checkSession() async {
-    final result = await _getCurrentUserUseCase(NoParams());
-
-    result.fold(
-      (failure) {
-        // Redirect to onboarding/login on failure
-        Get.offAllNamed(Routes.onboarding);
-      },
-      (user) {
-        // Save user session to storage
-        StorageService.saveSession(
-          role: user.role,
-          userId: user.userId,
-          nama: user.namaLengkap,
-          avatarUrl: user.fotoProfilUrl,
-        );
-
-        // Redirect based on role
-        _redirectByRole(user.role);
-      },
-    );
+    // 3. Cek session Appwrite
+    try {
+      await AppwriteService.account.get();
+      
+      // Session aktif: ambil role dari Storage
+      final String? role = StorageService.getRole();
+      
+      if (role != null && role.isNotEmpty) {
+        _redirectByRole(role);
+      } else {
+        Get.offAllNamed(Routes.welcome);
+      }
+    } on AppwriteException catch (e) {
+      // code 401: Unauthorized (no session)
+      Get.offAllNamed(Routes.welcome);
+    } catch (e) {
+      // Error lain
+      Get.offAllNamed(Routes.welcome);
+    }
   }
 
   void _redirectByRole(String role) {
@@ -55,7 +55,7 @@ class SplashController extends GetxController {
         Get.offAllNamed(Routes.adminHome);
         break;
       default:
-        Get.offAllNamed(Routes.onboarding);
+        Get.offAllNamed(Routes.welcome);
     }
   }
 }
