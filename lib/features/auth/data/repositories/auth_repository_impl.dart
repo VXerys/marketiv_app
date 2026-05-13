@@ -13,15 +13,15 @@ class AuthRepositoryImpl implements AuthRepository {
 
   Failure _handleException(dynamic e) {
     if (e is UnauthorizedException) {
-      return AuthFailure(message: e.message);
+      return AuthFailure(e.message);
     } else if (e is NotFoundException) {
-      return NotFoundFailure(message: e.message);
+      return NotFoundFailure(e.message);
     } else if (e is ConflictException) {
-      return ConflictFailure(message: e.message);
+      return ConflictFailure(e.message);
     } else if (e is ServerException) {
-      return ServerFailure(message: e.message);
+      return ServerFailure(e.message);
     } else {
-      return const ServerFailure(message: 'Terjadi kesalahan tidak terduga.');
+      return const ServerFailure('Terjadi kesalahan tidak terduga.');
     }
   }
 

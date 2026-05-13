@@ -18,11 +18,6 @@ class ConflictException implements Exception {
   ConflictException(this.message);
 }
 
-class RateLimitException implements Exception {
-  final String message;
-  RateLimitException(this.message);
-}
-
 class CacheException implements Exception {
   final String message;
   CacheException(this.message);

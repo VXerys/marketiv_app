@@ -1,30 +1,32 @@
 abstract class Routes {
-  static const splash = '/splash';
-  static const onboarding = '/onboarding';
-  static const login = '/login';
-  static const register = '/register';
+  static const splash        = '/splash';
+  static const onboarding    = '/onboarding';
+  static const login         = '/login';
+  static const register      = '/register';
   static const roleSelection = '/role-selection';
-  
-  // UMKM Routes
-  static const umkmHome = '/umkm-home';
-  static const campaignList = '/campaigns';
-  static const campaignCreate = '/campaign-create';
-  static const campaignDetail = '/campaign-detail';
-  static const kreatorDirectory = '/kreators';
-  static const keuanganUMKM = '/keuangan-umkm';
-  
-  // Kreator Routes
-  static const kreatorHome = '/kreator-home';
-  static const jobPool = '/job-pool';
-  static const pekerjaanAktif = '/pekerjaan-aktif';
-  static const keuanganKreator = '/keuangan-kreator';
-  
-  // Admin Routes
-  static const adminHome = '/admin-home';
-  
+
+  // UMKM
+  static const umkmHome        = '/umkm/home';
+  static const campaignCreate  = '/umkm/campaign/create';
+  static const campaignList    = '/umkm/campaign';
+  static const campaignDetail  = '/umkm/campaign/detail';
+  static const kreatorDirectory = '/umkm/kreator';
+  static const kreatorProfile  = '/umkm/kreator/detail';
+  static const keuanganUMKM    = '/umkm/keuangan';
+
+  // Kreator
+  static const kreatorHome     = '/kreator/home';
+  static const jobPool         = '/kreator/job-pool';
+  static const jobPoolDetail   = '/kreator/job-pool/detail';
+  static const pekerjaanAktif  = '/kreator/pekerjaan-aktif';
+  static const submitBukti     = '/kreator/pekerjaan-aktif/submit';
+  static const rateCardManage  = '/kreator/rate-card';
+  static const keuanganKreator = '/kreator/keuangan';
+
+  // Admin
+  static const adminHome = '/admin';
+
   // Shared
-  static const profile = '/profile';
-  static const editProfile = '/edit-profile';
-  static const chatRoom = '/chat-room';
-  static const negoRoomUMKM = '/nego-room';
+  static const editProfile  = '/profile/edit';
+  static const notification = '/notification';
 }

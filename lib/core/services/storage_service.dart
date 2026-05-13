@@ -1,41 +1,44 @@
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class StorageService extends GetxService {
-  static const _keyRole = 'role';
-  static const _keyUserId = 'user_id';
-  static const _keyNama = 'nama_lengkap';
-  static const _keyAvatar = 'avatar_url';
-  static const _keyFirstLaunch = 'first_launch';
+class StorageService {
+  static const String _keyRole = 'role';
+  static const String _keyUserId = 'user_id';
+  static const String _keyNama = 'nama';
+  static const String _keyAvatarUrl = 'avatar_url';
 
   static final _box = GetStorage();
 
-  static Future<StorageService> init() async {
+  static Future<void> init() async {
     await GetStorage.init();
-    return StorageService();
+  }
+
+  static void saveSession({
+    required String role,
+    required String userId,
+    required String nama,
+    String? avatarUrl,
+  }) {
+    saveRole(role);
+    saveUserId(userId);
+    saveNama(nama);
+    if (avatarUrl != null) {
+      saveAvatar(avatarUrl);
+    }
   }
 
   static void saveRole(String role) => _box.write(_keyRole, role);
-  static void saveUserId(String id) => _box.write(_keyUserId, id);
+  static void saveUserId(String userId) => _box.write(_keyUserId, userId);
   static void saveNama(String nama) => _box.write(_keyNama, nama);
-  static void saveAvatar(String url) => _box.write(_keyAvatar, url);
+  static void saveAvatar(String url) => _box.write(_keyAvatarUrl, url);
 
   static String? getRole() => _box.read<String>(_keyRole);
   static String? getUserId() => _box.read<String>(_keyUserId);
   static String? getNama() => _box.read<String>(_keyNama);
-  static String? getAvatar() => _box.read<String>(_keyAvatar);
+  static String? getAvatarUrl() => _box.read<String>(_keyAvatarUrl);
 
-  static bool isFirstLaunch() {
-    final launched = _box.read<bool>(_keyFirstLaunch) ?? false;
-    if (!launched) _box.write(_keyFirstLaunch, true);
-    return !launched;
-  }
+  static bool isLoggedIn() => getUserId() != null;
 
   static void clearAll() {
-    _box.remove(_keyRole);
-    _box.remove(_keyUserId);
-    _box.remove(_keyNama);
-    _box.remove(_keyAvatar);
-    // JANGAN hapus _keyFirstLaunch agar tidak tampil onboarding lagi
+    _box.erase();
   }
 }

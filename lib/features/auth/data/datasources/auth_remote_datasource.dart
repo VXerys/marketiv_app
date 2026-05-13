@@ -2,7 +2,6 @@ import 'package:appwrite/appwrite.dart';
 
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/error/exceptions.dart';
-import '../../../../core/services/appwrite_service.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {

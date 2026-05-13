@@ -26,16 +26,16 @@ class SplashController extends GetxController {
     result.fold(
       (failure) {
         // Redirect to onboarding/login on failure
-        Get.offAllNamed(Routes.login);
+        Get.offAllNamed(Routes.onboarding);
       },
       (user) {
         // Save user session to storage
-        StorageService.saveRole(user.role);
-        StorageService.saveUserId(user.userId);
-        StorageService.saveNama(user.namaLengkap);
-        if (user.fotoProfilUrl != null) {
-          StorageService.saveAvatar(user.fotoProfilUrl!);
-        }
+        StorageService.saveSession(
+          role: user.role,
+          userId: user.userId,
+          nama: user.namaLengkap,
+          avatarUrl: user.fotoProfilUrl,
+        );
 
         // Redirect based on role
         _redirectByRole(user.role);
@@ -55,7 +55,7 @@ class SplashController extends GetxController {
         Get.offAllNamed(Routes.adminHome);
         break;
       default:
-        Get.offAllNamed(Routes.login);
+        Get.offAllNamed(Routes.onboarding);
     }
   }
 }

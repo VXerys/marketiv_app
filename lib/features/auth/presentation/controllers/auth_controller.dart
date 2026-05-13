@@ -8,8 +8,7 @@ import 'package:marketiv_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:marketiv_app/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:marketiv_app/features/auth/domain/usecases/register_usecase.dart';
 
-// Assume NoParams is available, defining a simple version if not
-class NoParams {}
+import 'package:marketiv_app/core/usecases/usecase.dart';
 
 class AuthController extends GetxController {
   final LoginUseCase _loginUseCase;
@@ -17,12 +16,15 @@ class AuthController extends GetxController {
   final LogoutUseCase _logoutUseCase;
   final GetCurrentUserUseCase _getCurrentUserUseCase;
 
-  AuthController(
-    this._loginUseCase,
-    this._registerUseCase,
-    this._logoutUseCase,
-    this._getCurrentUserUseCase,
-  );
+  AuthController({
+    required LoginUseCase loginUseCase,
+    required RegisterUseCase registerUseCase,
+    required LogoutUseCase logoutUseCase,
+    required GetCurrentUserUseCase getCurrentUserUseCase,
+  })  : _loginUseCase = loginUseCase,
+        _registerUseCase = registerUseCase,
+        _logoutUseCase = logoutUseCase,
+        _getCurrentUserUseCase = getCurrentUserUseCase;
 
   final Rxn<UserEntity> _currentUser = Rxn<UserEntity>();
   final RxBool _isLoading = false.obs;
@@ -50,12 +52,12 @@ class AuthController extends GetxController {
       (user) {
         _currentUser.value = user;
         
-        StorageService.saveRole(user.role);
-        StorageService.saveUserId(user.userId);
-        StorageService.saveNama(user.namaLengkap);
-        if (user.fotoProfilUrl != null) {
-          StorageService.saveAvatar(user.fotoProfilUrl!);
-        }
+        StorageService.saveSession(
+          role: user.role,
+          userId: user.userId,
+          nama: user.namaLengkap,
+          avatarUrl: user.fotoProfilUrl,
+        );
         
         _redirectByRole(user.role);
       },

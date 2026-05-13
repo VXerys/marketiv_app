@@ -16,9 +16,9 @@ Future<dynamic> main(final context) async {
     final response = await users.list();
     // Log messages and errors to the Appwrite Console
     // These logs won't be seen by your end users
-    context.log('Total users: ' + response.total.toString());
+    context.log('Total users: ${response.total}');
   } catch (e) {
-    context.error('Could not list users: ' + e.toString());
+    context.error('Could not list users: $e');
   }
 
   // The req object contains the request data

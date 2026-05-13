@@ -4,7 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../../core/widgets/primary_button.dart';
+import '../../../../shared/widgets/primary_button.dart';
 import '../controllers/auth_controller.dart';
 import '../widgets/auth_text_field.dart';
 
@@ -88,7 +88,7 @@ class RegisterPage extends GetView<AuthController> {
                 borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),

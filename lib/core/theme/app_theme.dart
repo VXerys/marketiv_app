@@ -12,7 +12,6 @@ class AppTheme {
         primary: AppColors.primary500,
         secondary: AppColors.secondary500,
         surface: AppColors.surface,
-        background: AppColors.background,
         error: AppColors.danger,
       ),
       scaffoldBackgroundColor: AppColors.background,

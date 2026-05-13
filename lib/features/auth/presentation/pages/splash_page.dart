@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/constants/app_text_styles.dart';
-import '../controllers/splash_controller.dart';
 
-class SplashPage extends GetView<SplashController> {
+/// SplashPage is a purely static display widget.
+/// Its lifecycle logic is handled entirely by SplashController,
+/// which is registered via SplashBinding and starts its work in onInit().
+/// We intentionally do NOT use GetView here to avoid any rebuild loops
+/// caused by GetX trying to resolve the controller during frame rendering.
+class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
@@ -18,37 +21,32 @@ class SplashPage extends GetView<SplashController> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Placeholder Icon (Icons.storefront)
             const Icon(
               Icons.storefront,
               size: 80,
               color: Colors.white,
             ),
-            
+
             const SizedBox(height: AppSpacing.md),
-            
-            // App Name
+
             Text(
               'Marketiv',
               style: AppTextStyles.h1.copyWith(
                 color: Colors.white,
-                fontFamily: 'Newsreader',
               ),
             ),
-            
+
             const SizedBox(height: AppSpacing.sm),
-            
-            // Tagline
+
             Text(
               'Marketplace Kreator & UMKM',
               style: AppTextStyles.bodyMedium.copyWith(
                 color: Colors.white70,
               ),
             ),
-            
+
             const SizedBox(height: AppSpacing.xxl),
-            
-            // Loader
+
             const CircularProgressIndicator(
               color: AppColors.primary500,
               strokeWidth: 3,
