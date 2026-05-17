@@ -15,6 +15,9 @@ import '../../features/campaign/presentation/bindings/campaign_binding.dart';
 import '../../features/campaign/presentation/pages/campaign_list_page.dart';
 import '../../features/campaign/presentation/pages/create_campaign_page.dart';
 import '../../features/campaign/presentation/pages/campaign_detail_page.dart';
+import '../../features/job_pool/presentation/bindings/job_pool_binding.dart';
+import '../../features/job_pool/presentation/pages/job_pool_detail_page.dart';
+import '../../features/job_pool/presentation/pages/job_pool_page.dart';
 import '../../features/navigation/presentation/bindings/main_navigation_binding.dart';
 import '../../features/navigation/presentation/pages/main_navigation_page.dart';
 
@@ -80,10 +83,20 @@ class AppPages {
     GetPage(
       name: Routes.kreatorHome,
       page: () => const MainNavigationPage(),
-      binding: MainNavigationBinding(),
+      bindings: [
+        MainNavigationBinding(),
+        JobPoolBinding(),
+      ],
     ),
-    // TODO: static const jobPool         = '/kreator/job-pool';
-    // TODO: static const jobPoolDetail   = '/kreator/job-pool/detail';
+    GetPage(
+      name: Routes.jobPool,
+      page: () => const JobPoolPage(),
+      binding: JobPoolBinding(),
+    ),
+    GetPage(
+      name: Routes.jobPoolDetail,
+      page: () => const JobPoolDetailPage(),
+    ),
     // TODO: static const pekerjaanAktif  = '/kreator/pekerjaan-aktif';
     // TODO: static const submitBukti     = '/kreator/pekerjaan-aktif/submit';
     // TODO: static const rateCardManage  = '/kreator/rate-card';
@@ -113,14 +126,6 @@ class AppPages {
       name: Routes.resetPassword,
       page: () => const ResetPasswordPage(),
       binding: AuthBinding(),
-    ),
-    GetPage(
-      name: Routes.welcome,
-      page: () => const WelcomePage(),
-    ),
-    GetPage(
-      name: Routes.roleSelection,
-      page: () => const RoleSelectionPage(),
     ),
   ];
 }

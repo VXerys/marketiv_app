@@ -556,7 +556,7 @@ Modul-modul ini melayani *role* KREATOR untuk mencari pekerjaan, mengunggah bukt
 
 | Fitur / Modul | Status | Keterangan Detail |
 |---------------|--------|-------------------|
-| **Job Pool (Bursa Kerja)** | ⏳ Belum Dimulai | Tampilan daftar kampanye aktif yang bisa diklaim kreator beserta filter (Niche, Harga). |
+| **Job Pool (Bursa Kerja)** | ✅ Selesai | Sudah terimplementasi penuh (Data, Domain, Presentation, UI). Tampilan daftar kampanye aktif, filter *niche*, detail kampanye, serta fungsi klaim job oleh kreator. |
 | **Pekerjaan Aktif & Submit Bukti** | ⏳ Belum Dimulai | Halaman pelacakan job berjalan dan form *submit* URL video (TikTok/IG Reels) untuk validasi. |
 | **Manajemen Rate Card** | ⏳ Belum Dimulai | Halaman bagi kreator untuk mengatur maksimal 3 paket harga (*fixed-price*). |
 | **Negosiasi & Terima Order** | ⏳ Belum Dimulai | Antarmuka untuk menerima/menolak *Custom Offer* dari UMKM. |
@@ -624,3 +624,4 @@ Logika pemrosesan di sisi *serverless* untuk menunjang keamanan dan layanan piha
 - **Penyelesaian Flow Autentikasi** — Perbaikan navigasi loop, implementasi argumen halaman berbasis mode, dan penyempurnaan `Splash` hingga `Login/Register`.
 - **Implementasi Wizard Create Campaign (UMKM)** — Modul pembuatan kampanye untuk UMKM telah rampung beserta 4-step wizard UI (Informasi Produk, Upload Aset, Budget & Kuota, Review), lengkap dengan kalkulator finansial reaktif menggunakan `GetBuilder` dan integrasi *AI Brief Assistant*. Semua *lint warning* terkait `create_campaign` sudah dibersihkan.
 - **Review & Fix Navigation & Campaign Routing** — Melakukan review dan fix terhadap routing, GetX Binding, Null Safety, implementasi UseCase `.fold()`, serta Widget Tree pada `MainNavigationPage` dan `CampaignListPage`. Menghapus keyword `const` yang menyebabkan build error pada file navigation.
+- **Implementasi Job Pool (Kreator)** — Modul Job Pool untuk kreator telah selesai diimplementasikan dengan Clean Architecture. Mencakup halaman daftar bursa kerja dengan filter *Niche*, detail kampanye, dan fitur klaim job. Seluruh `lint warning` dan duplikat *routing* terkait juga telah dibersihkan.
