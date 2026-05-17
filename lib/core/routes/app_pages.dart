@@ -20,6 +20,9 @@ import '../../features/job_pool/presentation/pages/job_pool_detail_page.dart';
 import '../../features/job_pool/presentation/pages/job_pool_page.dart';
 import '../../features/navigation/presentation/bindings/main_navigation_binding.dart';
 import '../../features/navigation/presentation/pages/main_navigation_page.dart';
+import '../../features/pekerjaan_aktif/presentation/bindings/pekerjaan_aktif_binding.dart';
+import '../../features/pekerjaan_aktif/presentation/pages/pekerjaan_aktif_page.dart';
+import '../../features/pekerjaan_aktif/presentation/pages/submit_bukti_page.dart';
 
 class AppPages {
   static const initial = Routes.splash;
@@ -86,6 +89,7 @@ class AppPages {
       bindings: [
         MainNavigationBinding(),
         JobPoolBinding(),
+        PekerjaanAktifBinding(),
       ],
     ),
     GetPage(
@@ -97,8 +101,15 @@ class AppPages {
       name: Routes.jobPoolDetail,
       page: () => const JobPoolDetailPage(),
     ),
-    // TODO: static const pekerjaanAktif  = '/kreator/pekerjaan-aktif';
-    // TODO: static const submitBukti     = '/kreator/pekerjaan-aktif/submit';
+    GetPage(
+      name: Routes.pekerjaanAktif,
+      page: () => const PekerjaanAktifPage(),
+      binding: PekerjaanAktifBinding(),
+    ),
+    GetPage(
+      name: Routes.submitBukti,
+      page: () => const SubmitBuktiPage(),
+    ),
     // TODO: static const rateCardManage  = '/kreator/rate-card';
     // TODO: static const keuanganKreator = '/kreator/keuangan';
 

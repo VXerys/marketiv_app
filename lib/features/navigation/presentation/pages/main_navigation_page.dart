@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../../campaign/presentation/pages/campaign_list_page.dart';
 import '../../../job_pool/presentation/pages/job_pool_page.dart';
+import '../../../pekerjaan_aktif/presentation/pages/pekerjaan_aktif_page.dart';
 import '../controllers/main_navigation_controller.dart';
 
 class MainNavigationPage extends GetView<MainNavigationController> {
@@ -39,10 +40,7 @@ class MainNavigationPage extends GetView<MainNavigationController> {
         body: const Center(child: Text('Beranda Kreator')),
       ),
       const JobPoolPage(),
-      Scaffold(
-        appBar: AppBar(title: const Text('Pekerjaan Aktif')),
-        body: const Center(child: Text('Segera Hadir')),
-      ),
+      const PekerjaanAktifPage(),
       Scaffold(
         appBar: AppBar(title: const Text('Dompet')),
         body: const Center(child: Text('Segera Hadir')),
