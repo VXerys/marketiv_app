@@ -30,15 +30,14 @@ class CampaignController extends GetxController {
   final _campaigns = <CampaignEntity>[].obs;
   List<CampaignEntity> get campaigns => _campaigns;
 
-  // Filter state
-  final _activeFilter = 'Semua'.obs;
-  String get activeFilter => _activeFilter.value;
+  final _filteredCampaigns = <CampaignEntity>[].obs;
+  List<CampaignEntity> get filteredCampaigns => _filteredCampaigns;
 
-  // List yang sudah difilter (client-side)
-  List<CampaignEntity> get filteredCampaigns {
-    if (_activeFilter.value == 'Semua') return _campaigns;
-    return _campaigns.where((c) => c.status == _activeFilter.value).toList();
-  }
+  final _selectedFilter = 'Semua'.obs;
+  String get selectedFilter => _selectedFilter.value;
+
+  // Backward compatibility untuk kode lama yang masih pakai nama lama.
+  String get activeFilter => _selectedFilter.value;
 
   final _selectedCampaign = Rxn<CampaignEntity>();
   CampaignEntity? get selectedCampaign => _selectedCampaign.value;
@@ -77,7 +76,10 @@ class CampaignController extends GetxController {
     
     result.fold(
       (failure) => _errorMessage.value = failure.message,
-      (data) => _campaigns.assignAll(data),
+      (data) {
+        _campaigns.assignAll(data);
+        filterByStatus(_selectedFilter.value);
+      },
     );
     
     _isLoading.value = false;
@@ -101,14 +103,29 @@ class CampaignController extends GetxController {
     
     result.fold(
       (failure) => _errorMessage.value = failure.message,
-      (data) => _campaigns.assignAll(data),
+      (data) {
+        _campaigns.assignAll(data);
+        filterByStatus(_selectedFilter.value);
+      },
     );
     
     _isLoading.value = false;
   }
 
+  void filterByStatus(String status) {
+    _selectedFilter.value = status;
+    if (status == 'Semua') {
+      _filteredCampaigns.assignAll(_campaigns);
+    } else {
+      _filteredCampaigns.assignAll(
+        _campaigns.where((c) => c.status == status).toList(),
+      );
+    }
+  }
+
+  // Backward compatibility untuk kode lama yang masih pakai method lama.
   void setFilter(String filter) {
-    _activeFilter.value = filter;
+    filterByStatus(filter);
   }
 
   Future<void> selectCampaign(String id) async {

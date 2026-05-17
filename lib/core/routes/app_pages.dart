@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app_routes.dart';
 import '../../features/auth/presentation/bindings/auth_binding.dart';
@@ -16,6 +15,8 @@ import '../../features/campaign/presentation/bindings/campaign_binding.dart';
 import '../../features/campaign/presentation/pages/campaign_list_page.dart';
 import '../../features/campaign/presentation/pages/create_campaign_page.dart';
 import '../../features/campaign/presentation/pages/campaign_detail_page.dart';
+import '../../features/navigation/presentation/bindings/main_navigation_binding.dart';
+import '../../features/navigation/presentation/pages/main_navigation_page.dart';
 
 class AppPages {
   static const initial = Routes.splash;
@@ -53,8 +54,11 @@ class AppPages {
     // UMKM
     GetPage(
       name: Routes.umkmHome,
-      page: () => const CampaignListPage(),
-      binding: CampaignBinding(),
+      page: () => const MainNavigationPage(),
+      bindings: [
+        MainNavigationBinding(),
+        CampaignBinding(),
+      ],
     ),
     GetPage(
       name: Routes.campaignList,
@@ -75,7 +79,8 @@ class AppPages {
     // Kreator
     GetPage(
       name: Routes.kreatorHome,
-      page: () => const Scaffold(body: Center(child: Text('Kreator Home Placeholder'))),
+      page: () => const MainNavigationPage(),
+      binding: MainNavigationBinding(),
     ),
     // TODO: static const jobPool         = '/kreator/job-pool';
     // TODO: static const jobPoolDetail   = '/kreator/job-pool/detail';
@@ -87,7 +92,8 @@ class AppPages {
     // Admin
     GetPage(
       name: Routes.adminHome,
-      page: () => const Scaffold(body: Center(child: Text('Admin Home Placeholder'))),
+      page: () => const MainNavigationPage(),
+      binding: MainNavigationBinding(),
     ),
 
     // Shared

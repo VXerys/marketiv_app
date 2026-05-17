@@ -543,7 +543,7 @@ Modul-modul ini secara khusus melayani pengguna dengan *role* UMKM untuk membuat
 
 | Fitur / Modul | Status | Keterangan Detail |
 |---------------|--------|-------------------|
-| **Manajemen Kampanye (Campaign Mode)** | ✅ Selesai | Sudah terimplementasi penuh (Data, Domain, Presentation, UI). Meliputi pembuatan model, repository, use cases (`CreateCampaignUseCase`, `GetMyCampaignsUseCase`), `CampaignController`, `CreateCampaignController`, UI `CampaignListPage`, serta Wizard `CreateCampaignPage` (4 langkah). |
+| **Manajemen Kampanye (Campaign Mode)** | ✅ Selesai | Sudah terimplementasi penuh (Data, Domain, Presentation, UI). Meliputi pembuatan model, repository, use cases (`CreateCampaignUseCase`, `GetMyCampaignsUseCase`), `CampaignController` dengan *client-side filtering*, UI `CampaignListPage` berserta filter status, serta Wizard `CreateCampaignPage` (4 langkah). |
 | **AI Brief Assistant** | ✅ Selesai | Terintegrasi di dalam wizard pembuatan kampanye (Step 1) memanggil `GenerateBriefUseCase`. |
 | **Direktori & Cari Kreator (Rate Card Mode)** | ⏳ Belum Dimulai | Halaman pencarian kreator, filter berdasarkan niche/rating, dan profil detail kreator. |
 | **Negosiasi & Custom Offer** | ⏳ Belum Dimulai | Antarmuka pembuatan penawaran (Custom Offer) untuk *fixed-price* project. |
@@ -570,6 +570,7 @@ Fondasi utama aplikasi, *design tokens*, dan pengaturan arsitektur dasar.
 | Fitur / Modul | Status | Keterangan Detail |
 |---------------|--------|-------------------|
 | **Core — Fondasi Arsitektur** | ✅ Selesai | Setup Clean Architecture (`Either`, `Failures`, `Exceptions`), `StorageService` untuk caching lokal, global DI (`InitialBinding`), dan routing (`AppRoutes`, `AppPages`). |
+| **Navigasi Utama (Main Navigation)** | ✅ Selesai | Implementasi `MainNavigationPage` dengan BottomNavigationBar dinamis berbasis role (UMKM, Kreator, Admin) beserta routing state `AppPages`. |
 | **Core — Design Tokens & UI Kit** | ✅ Selesai | Implementasi *design system* melalui `AppColors`, `AppSpacing`, `AppTextStyles`, serta komponen *reusable* (`PrimaryButton`, `WarningBanner`, `LoadingShimmer`, `StatusBadge`, `AuthTextField`). |
 | **Appwrite SDK & Datasource** | ✅ Selesai | Pembuatan Singleton `AppwriteService` yang mencakup inisialisasi layanan Databases, Account, Storage, Realtime, dan Functions. |
 
@@ -622,3 +623,4 @@ Logika pemrosesan di sisi *serverless* untuk menunjang keamanan dan layanan piha
 ### Catatan Sesi Terakhir
 - **Penyelesaian Flow Autentikasi** — Perbaikan navigasi loop, implementasi argumen halaman berbasis mode, dan penyempurnaan `Splash` hingga `Login/Register`.
 - **Implementasi Wizard Create Campaign (UMKM)** — Modul pembuatan kampanye untuk UMKM telah rampung beserta 4-step wizard UI (Informasi Produk, Upload Aset, Budget & Kuota, Review), lengkap dengan kalkulator finansial reaktif menggunakan `GetBuilder` dan integrasi *AI Brief Assistant*. Semua *lint warning* terkait `create_campaign` sudah dibersihkan.
+- **Review & Fix Navigation & Campaign Routing** — Melakukan review dan fix terhadap routing, GetX Binding, Null Safety, implementasi UseCase `.fold()`, serta Widget Tree pada `MainNavigationPage` dan `CampaignListPage`. Menghapus keyword `const` yang menyebabkan build error pada file navigation.
